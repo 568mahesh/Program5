@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .slider-image {
+            width: 100%;
+            display: block;
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .prev-btn {
+            left: 10px;
+        }
+        .next-btn {
+            right: 10px;
+        }
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-container">
+    <img id="sliderImage" class="slider-image" src="" alt="Slider Image">
+    <button class="nav-button prev-btn" id="prevBtn">&#10094;</button>
+    <button class="nav-button next-btn" id="nextBtn">&#10095;</button>
+</div>
+
+<script>
+    // Array of image URLs
+    const images = [
+        'https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        'https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        'https://images.pexels.com/photos/1064162/pexels-photo-1064162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        'https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg',
+    ];
+
+    let currentIndex = 0;
+
+    // Get references to DOM elements
+    const sliderImage = document.getElementById('sliderImage');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Function to update the image source based on the current index
+    function updateImage() {
+        sliderImage.src = images[currentIndex];
+    }
+
+    // Function to show the next image
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;  // Wrap around to the start
+        updateImage();
+    }
+
+    // Function to show the previous image
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;  // Wrap around to the end
+        updateImage();
+    }
+
+    // Event listeners for buttons
+    nextBtn.addEventListener('click', nextImage);
+    prevBtn.addEventListener('click', prevImage);
+
+    // Initialize the slider with the first image
+    updateImage();
+</script>
+
+</body>
+</html>
